@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.14' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -22,13 +22,13 @@ Rails::Initializer.run do |config|
   
   # Annotate gem for ActiveRecord annotations
   # https://github.com/ctran/annotate_models
-  config.gem "annotate", :version => "2.4.0"
+  config.gem "annotate"
   
   # Chronic gem for natural language date/time
-  config.gem "chronic", :version => "0.2.3"
+  config.gem "chronic"
   
   # Paperclip gem for attachments
-  config.gem 'paperclip', :version => '2.3', :lib => 'paperclip'
+  config.gem 'paperclip', :version => "2.7.0"
   
   # RedCloth gem (note camel-case name) for Textile markup
   config.gem "RedCloth", :version => "4.2.2"
