@@ -1,0 +1,329 @@
+html, body { 
+	/* 100% so that the Get Satisfaction feedback overlay will cover the whole screen */
+	height:100%;
+}
+body {
+	margin:0;
+	padding:0;
+	font-family:"Lucida Sans",Arial,sans-serif;
+	font-size:14px;
+	background:#E6BE63  url(/images/vchimps/monkey-side.png) no-repeat top right fixed;
+}
+
+a { color:#997A12; }
+a:hover { color:#F6FF00; }
+
+h1, h2, h3, h4, h5, h6 { font-weight:bold;letter-spacing:-0.05em; }
+h1 { margin-bottom:0.75em;font-size:32px;line-height:1em; }
+h2 { margin-bottom:0.5em;font-size:20px; }
+h3 { margin-bottom:0.5em;font-size:16px; }
+h4 { margin-bottom:0.5em;font-size:14px; }
+
+/* === Container === */
+.container_wrap {
+	padding:20px;
+  background-color:transparent;
+}
+.container_with_sb_bg {
+	background:url(/images/vchimps/bd_sb_bg_transparent.png) top left repeat-y;
+  opacity:0.75;
+  filter:alpha(opacity=75);
+}
+.container_with_sb {
+  background-color:transparent;
+}
+
+/* === Special === */
+span.pipe {
+	padding:0px 5px;
+	color:#666;
+}
+hr.doublespace {
+	/* Twice the size of hr.space */
+	margin:0 0 3em;
+	background:transparent;
+	color:#fff;
+}
+hr.halfspace {
+	/* A little less than half the size of hr.space */
+	margin:0 0 0.5em;
+	background:transparent;
+	color:#fff;
+}
+.small {
+	/* Makes anything small; inherited from Blueprint CSS#screen.css */
+	line-height:1.5em;
+}
+.gravatar {
+	/* Create a faux frame around the gravatar icon */
+	outline:1px solid #ccc;
+	border:5px solid #fff;
+}
+	a:hover>.gravatar {
+		outline:1px solid #F6FF00;
+	}
+ul.bulletless {
+	margin-left:0;
+	margin-right:0;
+	padding-left:0;
+	padding-right:0;
+	list-style:none;
+}
+	ul.bulletless>li {
+		
+	}
+		ul.bulletless>li ul.bulletless {
+			padding-left:1.5em;
+		}
+
+/* === Header === */
+#hd {
+	margin-bottom:5px;
+	padding:0;
+	height:60px;
+	color:#fff;
+}
+	#hd a.logo {
+		position:relative;
+		display:block;
+		float:left;
+		overflow:hidden;
+	}
+		#hd a.logo>h1 {
+			display:none;
+		}
+		#hd a.logo>img {
+			position:absolute;
+		}
+		#hd a.logo>img._on { display:none; }
+		#hd a.logo:hover>img { display:none; }
+		#hd a.logo:hover>img._on { display:block; }
+		
+		#chimpslab_logo { margin-left:-20px;width:294px;height:60px; }
+		#hcii_logo { width:78px;height:60px; }
+		#hcii_logo>img { left:-294px; }
+		#cmu_logo { width:202px;height:60px; }
+		#cmu_logo>img { left:-372px; }
+			
+	#hd .nav {
+		float:right;
+		text-align:right;
+		padding-top:9px;
+	}
+	#hd .nav a {
+	}
+
+/* === Main Navigation === */
+#mainnav {
+	clear:both;
+	padding:0 20px;
+	border-bottom:5px solid #7E5E4F;
+	background-color:#997A12;
+}
+	#mainnav ul {
+		margin:0;
+		margin-left:-10px;
+		padding:0;
+		list-style:none;
+	}
+		#mainnav ul>li {
+			float:left;
+		}
+		#mainnav ul>li>a {
+			display:block;
+			margin-right:2px;
+			padding:8px 10px;
+			font-size:13px;
+			font-weight:bold;
+			color:#fff;
+			text-decoration:none;
+			text-transform:uppercase;
+		}
+			#mainnav ul>li>a.selected,
+			#mainnav ul>li>a:hover {
+				background-color:#7E5E4F;
+			}
+		/* --- Subnav --- */
+		#mainnav ul>li>ul {
+			display:none;
+			margin-left:0;
+			background-color:#997A12;
+		}
+			#mainnav ul>li:hover>ul {
+				position:absolute;
+				display:block;
+			}
+			#mainnav ul>li>ul>li {
+				float:none;
+			}
+			#mainnav ul>li>ul>li>a,
+			#mainnav ul>li>ul>li>a.selected,
+			#mainnav ul>li>ul>li>a:hover {
+				margin-top:2px;
+				margin-right:0;
+			}
+		#mainnav ul>li.admin a {
+			background-color:#997A12;
+    }
+		#mainnav ul>li.admin a:hover {
+			background-color:#7E5E4F;
+		}
+/* === Content: wraps Body and Sidebar === */
+#content {
+	background-color:transparent;
+}
+/* Body */
+#bd {
+	min-height:400px; 
+  background:transparent;
+}
+/* Sidebar */
+.sb {
+  background:transparent;
+}
+	.sb h2 { font-size:18px; }
+	.sb p {
+		margin-bottom:0.9em;
+	}
+	.sb ul {
+		margin:0;
+		list-style:none;
+	}
+	.sb hr {
+		margin-bottom:0.9em;
+		background:#7E5E4F;
+	}
+	.sb ._shaded {
+		padding:6px 8px;
+		background-color:#FAD496;
+	}
+	.sb ._shaded *:last-child {
+		margin-bottom:0px;
+	}
+/* Footer */
+#ft {
+	margin-bottom:0px !important;
+	padding-top:15px;;
+	padding-bottom:15px;
+	font-size:11px;
+	color:#999;
+	background-color:#7E5E4F;
+}
+	#ft span.pipe {
+		padding:0 2px;
+		color:#999;
+	}
+
+/* === FLASH MESSAGES === */
+#flash {
+	padding:10px 20px;
+	font-size:18px;
+	font-weight:bold;
+	color:#fff;
+	background-color:#7E5E4F;
+}
+	#close_flash {
+		float:right;
+		display:block;
+		padding:3px 6px 5px;
+		line-height:1em;
+		background-color:#fff;
+		color:#7E5E4F;
+		text-decoration:none;
+	}
+
+div#flash-notice {
+	
+}
+
+div#flash-warning {
+	
+}
+
+div#flash-error {
+	
+}
+
+/* === ERROR MESSAGES === */
+div#errorExplanation {
+	
+}
+
+div#errorExplanation h2 {
+	
+}
+
+div#errorExplanation p {
+	
+}
+
+div#errorExplanation ul {
+	
+}
+
+div#errorExplanation ul li {
+	
+}
+
+/* === FORMS === */
+div.fieldWithErrors {
+	
+}
+
+div.fieldWithErrors label {
+	
+}
+
+div.fieldWithErrors input, div.fieldWithErrors select, 
+div.fieldWithErrors textarea
+{
+	
+}
+
+form {
+}
+form label,
+form input,
+form input.text,
+form input.checkbox,
+form input.submit,
+form select {
+	font-size:16px;
+}
+form input.text,
+form select,
+form textarea {
+	margin:0;
+	width:98%;
+}
+form select {
+	margin-bottom:10px;
+}
+a.button,
+a.button:hover,
+form input.submit {
+	padding:8px 10px;
+	cursor:pointer;
+	color:#fff;
+	background-color:#444;
+	outline:1px solid #111;
+	border:0;
+	border-top:1px solid #555;
+	border-left:1px solid #555;
+	text-decoration:none;
+}
+	a.button:active,
+	form input.submit:active {
+		color:#000;
+		background-color:#ccc;
+	}
+	
+/* === Admin Actions === */
+.admin_actions {
+	margin-bottom:1em;
+	padding:5px 8px;
+	background-color:#7E5E4F; /* #c2daf5; */
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}

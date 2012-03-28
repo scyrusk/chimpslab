@@ -1,0 +1,9 @@
+<p class="pub">
+	<%= link_to publication.title, publication, :class => "_title" %><br/>
+	<%= link_to_authors(publication.authors_list, people) %><br/>
+	<%=h publication.venue_name %>, <%=h publication.year %>. 
+	<%=h publication.kind %>
+	<% if publication.pdf.exists? %>
+		(<%= link_to "PDF", publication.pdf.url %>)
+	<% end %>
+</p>

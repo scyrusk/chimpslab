@@ -1,0 +1,37 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  kind: MyString
+  authors: MyText
+  title: MyString
+  venue: MyString
+  year: 1
+
+two:
+  kind: MyString
+  authors: MyText
+  title: MyString
+  venue: MyString
+  year: 1
+
+
+# == Schema Information
+#
+# Table name: publications
+#
+#  id               :integer         not null, primary key
+#  kind             :string(255)
+#  authors          :text
+#  title            :string(255)
+#  venue_id         :integer
+#  venue_name       :string(255)
+#  year             :integer
+#  abstract         :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#  pdf_file_name    :string(255)
+#  pdf_content_type :string(255)
+#  pdf_file_size    :integer
+#  pdf_updated_at   :datetime
+#
+

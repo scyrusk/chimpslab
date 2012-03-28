@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  publications_count: 1
+
+two:
+  name: MyString
+  publications_count: 1
+
+
+# == Schema Information
+#
+# Table name: venues
+#
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  publications_count :integer         default(0)
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+

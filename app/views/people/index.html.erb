@@ -1,0 +1,45 @@
+<% content_for :title do %>People<% end %>
+
+<h1>People</h1>
+
+<% Person::POSITIONS.each do |position| %>
+	<% next unless @people_by_position.has_key?(position) %>
+	
+	<h2 id="<%= position.parameterize %>"><%= position %></h2>
+	
+	<% @people_by_position[position].each do |person| %>
+		<% column = cycle("", "", "last", :name => "columns") %>
+		<div class="span-6 <%= column %>">
+			<div class="span-2">
+				<%= image_tag person.avatar.url(:thumb), :size => "60x60", :style => "float:left;margin-right:10px;border:3px solid #fff;outline:1px solid #ccc;" %>
+			</div>
+			<div class="span-4 last">
+				<%= link_to person.name, person %>
+			</div>
+		</div>
+		
+		<% unless column.blank? %>
+			<hr class="space" />
+		<% end %>
+	<% end %>
+	
+	<hr class="space" />
+	
+	<% reset_cycle("columns") %>
+<% end %>
+
+<% content_for :sb do %>
+	<% if authorized? %>
+		<h2>Actions</h2>
+		<p>
+			<%= link_to 'New person', new_person_path %>
+		</p>
+	<% end %>
+
+	<h2>Positions</h2>
+	<ul class="bulletless">
+		<% Person::POSITIONS.each do |position| %>
+			<li><%= link_to position, :anchor => position.parameterize %></li>
+		<% end %>
+	</ul>
+<% end %>

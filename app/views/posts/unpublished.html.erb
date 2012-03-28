@@ -1,0 +1,24 @@
+<% content_for :title do %>Unpublished Posts<% end %>
+
+<h1>Unpublished Posts</h1>
+
+<% if @posts.empty? %>
+	<p>
+		Hmmm&hellip;There are no unpublished posts.
+	</p>
+<% end %>
+
+<% @posts.each do |post| %>
+	<%= render :partial => "posts/listing", :locals => { :post => post } %>
+	
+	<hr class="space" />
+<% end %>
+
+<% content_for :sb do %>
+	<% if authorized? %>
+		<h2>Actions</h2>
+		<ul class="bulletless">
+			<li><%= link_to 'New post', new_post_path %></li>
+		</ul>
+	<% end %>
+<% end %>

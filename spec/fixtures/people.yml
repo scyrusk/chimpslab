@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value
+    
+# == Schema Information
+#
+# Table name: people
+#
+#  id                  :integer         not null, primary key
+#  alias               :string(255)
+#  name                :string(255)
+#  email               :string(255)
+#  url                 :string(255)
+#  position            :string(255)
+#  description         :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  avatar_file_name    :string(255)
+#  avatar_content_type :string(255)
+#  avatar_file_size    :integer
+#  avatar_updated_at   :datetime
+#
+

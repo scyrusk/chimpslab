@@ -1,0 +1,38 @@
+<% content_for :title do %>Publications<% end %>
+<% content_for :head do %>
+<style type="text/css">
+.pub>._title {
+	font-weight:bold;
+}
+</style>
+<% end %>
+
+<h1>Publications</h1>
+
+<% @publications_by_year.each do |year, publications| %>
+	<h2 id="<%= year %>"><%= year %></h2>
+	<% publications.each do |publication| %>
+		<%= render :partial => "publications/listing", 
+				:locals => {
+					:publication => publication,
+					:people => @people
+				} %>
+	<% end %>
+<% end %>
+
+
+<% content_for :sb do %>
+	<% if authorized? %>
+		<h2>Actions</h2>
+		<p>
+			<%= link_to 'New publication', new_publication_path %>
+		</p>
+	<% end %>
+
+	<h2>Year</h2>
+	<ul class="bulletless">
+		<% @publications_by_year.each do |year, publications| %>
+			<li><%= link_to year, :anchor => year %></li>
+		<% end %>
+	</ul>
+<% end %>

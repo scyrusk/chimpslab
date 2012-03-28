@@ -1,0 +1,28 @@
+<% content_for :title do %>Pages<% end %>
+
+<h1>Pages</h1>
+
+<% @pages.each do |page| %>
+	<div class="span-9 <%= cycle("", "last") %>">
+		<b><%= link_to page.permalink, page_path(page) %></b>
+		<p>
+			<%= truncate(page.body, :length => 256) %>
+		</p>
+		<p class="small">
+			<% if page.sidebar %>
+				Sidebar: <%= link_to page.sidebar.permalink, page_path(page.sidebar) %><br/>
+			<% end %>
+			Page Title: <b><%=h page.title %></b><br/>
+			Actions: 
+			<%= link_to 'Show', page %> <span class="pipe">|</span>
+		    <%= link_to 'Edit', edit_page_path(page) %> <span class="pipe">|</span>
+		    <%= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete %>
+		</p>
+	</div>
+<% end %>
+
+<% content_for :sb do %>
+	<h2>Actions</h2>
+	
+	<%= link_to 'New page', new_page_path %>
+<% end %>

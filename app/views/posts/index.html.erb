@@ -1,0 +1,27 @@
+<% content_for :title do %>Blog<% end %>
+
+<h1>Blog</h1>
+
+<% if @posts.empty? %>
+	<p>
+    <em>There are no posts, yet.</em>
+	</p>
+<% end %>
+
+<% @posts.each do |post| %>
+	<%= render :partial => "posts/listing", :locals => { :post => post } %>
+	
+	<hr class="space" />
+<% end %>
+
+<% content_for :sb do %>
+	<% if authorized? %>
+		<h2>Actions</h2>
+		<ul class="bulletless">
+			<li><%= link_to 'New post', new_post_path %></li>
+			<li><%= link_to 'Unpublished posts', unpublished_posts_path %></li>
+		</ul>
+	<% end %>
+	
+	&nbsp;
+<% end %>

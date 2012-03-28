@@ -1,0 +1,143 @@
+<% form_for(@publication, :html => { :multipart => true }) do |f| %>
+	<%= f.error_messages %>
+
+	<div class="span-4">
+		<%= f.label :kind %>
+	</div>
+	<div class="span-4">
+		<%= select_tag :kind, options_for_select(Publication::KINDS << "Other:", @publication.kind) %>
+	</div>
+	<div class="span-10 last">
+		<%= f.text_field :kind, :class => "text", :style => "display:none;"  %>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+		<%= f.label :authors %>
+		<p class="small">
+			Each author on a separate line.
+			For consistency, format should be
+			<code>first last</code>, <i>e.g.</i>:
+			<i>Anind K. Dey</i>
+		</p>
+	</div>
+	<div class="span-6">
+		<%= f.text_area :authors, :style => "height:100px;" %>
+	</div>
+	<div class="span-4">
+		<p class="small">
+			Use the canonical names of members so that their names are automatically linked to their profiles.
+		</p>
+	</div>
+	<div class="span-4 last">
+		<ul class="bulletless small" style="padding:5px;height:100px;overflow-y:auto;color:#666;background-color:#eee;">
+			<% Person.find(:all).each do |p| %>
+				<li><%= p.name %></li>
+			<% end %>
+		</ul>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+		<%= f.label :title %>
+	</div>
+	<div class="span-14 last">
+		<%= f.text_field :title, :class => "text" %>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+		<%= f.label :venue_name %>
+	</div>
+	<div class="span-14 last">
+		<% venue_names = Venue.find(:all, :conditions => "publications_count > 0").map { |v| v.name } %>
+		<%= select_tag :venue_name, options_for_select(venue_names << "Other:", @publication.venue_name) %><br/>
+		<%= f.text_field :venue_name, :class => "text", :style => "display:none;" %>
+		<p class="small" style="margin-bottom:0">
+			Use the name of the conference instead of the name of the proceedings,
+			<i>e.g., CHI vs. Proceedings of The ACM Conference on Human Factors in Computing Systems.</i>
+		</p>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+		<%= f.label :year %>
+	</div>
+	<div class="span-4 append-10 last">
+		<%= f.text_field :year, :class => "text" %>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+		<%= f.label :abstract %>
+		<p class="small">
+			You can format the abstract using
+			<%= link_to "Textile", "http://blog.thought-mesh.net/static/docs/mtmanual_textile2.html", :target => "_new" %>.	
+		</p>
+	</div>
+	<div class="span-14 last">
+		<%= f.text_area :abstract, :style => "height:200px;" %>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+		<%= f.label :pdf %>
+	</div>
+	<div class="span-14 last">
+		<%= f.file_field :pdf %>
+	</div>
+	<hr class="space" />
+	
+	<div class="prepend-4 span-14 last">
+		<%= f.submit(@publication.new_record? ? 'Create' : 'Update', :class => "submit") %>
+	</div>
+<% end %>
+
+<% content_for :js do %>
+	<script type="text/javascript">
+		function select_other(select_id, text_field_id) {
+			// Prepare the event handler to the select.
+			$(select_id).change(function() {
+				var value = $(this).val();
+				if (value == "Other:") {
+					$(text_field_id)
+						.show()
+						.focus();
+				} else {
+					$(text_field_id)
+						.val(value)
+						.hide();
+				}
+			});
+			
+			// Check if the option exists.
+			var option = $(text_field_id).val();
+			var option_exists = false;
+			$(select_id + " option").each(function() {
+				if ($(this).html() == option) {
+					option_exists = true;
+					return false;
+				}
+			});
+			
+			// If not show, the text field.
+			if (!option_exists) {
+				$(select_id).val("Other:").change();
+			}
+		}
+		
+		$(document).ready(function() {
+			select_other("#kind", "#publication_kind");
+      select_other("#venue_name", "#publication_venue_name");
+      $("#content_background").height($("#content").height());
+      $("#content").offset({top: $("#content_background").offset().top});
+      $("#ft").offset({top: $("#content_background").offset().top+$("#content_background").height()+35});
+		});
+	</script>
+<% end %>
+
+<% content_for :sb do %>
+	<h2>Formatting your abstract</h2>
+	
+	<%= render :partial => "layouts/textile_examples" %>
+<% end %>

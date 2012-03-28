@@ -1,0 +1,10 @@
+<h1>Editing publication</h1>
+
+<% content_for :sb do %>
+	<h2>Actions</h2>
+	<p>
+		<%= link_to 'Return to publication', @publication %>
+	</p>
+<% end %>
+
+<%= render :partial => "publications/form" %>

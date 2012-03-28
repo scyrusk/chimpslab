@@ -1,0 +1,14 @@
+<% content_for :title do %><%= @page.title %><% end %>
+
+<%= textilize @page.body %>
+
+<% if @page.sidebar %>
+	<% content_for :sb do %>
+		<%= textilize @page.sidebar.body %>
+	<% end %>
+<% end %>
+
+<% if authorized? %>
+	<%= link_to "Edit", edit_page_path(@page) %> <span class="pipe">|</span>
+	<%= link_to "List Pages", pages_path %>
+<% end %>

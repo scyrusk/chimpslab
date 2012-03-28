@@ -1,0 +1,49 @@
+<% content_for :title do %><%= @person.name %><% end %>
+
+<div class="span-4">
+	<%= image_tag @person.avatar.url(:small), :width => "140" %>
+</div>
+<div class="span-14 last">
+	<h1><%= @person.name %></h1>
+	
+	<p>
+		<%= @person.position %><br/>
+		<%= mail_to @person.email, @person.emaildisplay, :encode => "javascript" %><br/>
+		<%= link_to @person.url, @person.url %>
+	</p>
+</div>
+<hr class="space" />
+
+<%= textilize @person.description %>
+
+<% unless @publications.empty? %>
+	<hr class="space" />
+	<h2>Publications</h2>
+	
+	<ul>
+		<% @publications.each do |pub| %>
+			<li><%= link_to pub.title, pub %> (<%= pub.year %>)</li>
+		<% end %>
+	</ul>
+<% end %>
+
+<% unless @posts.empty? %>
+	<hr class="space" />
+	<h2>Posts</h2>
+	
+	<ul>
+		<% @posts.each do |post| %>
+			<li><%= link_to post.title, post %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<% content_for :sb do %>
+	<% if authorized? %>
+		<h2>Actions</h2>
+		<p>
+			<%= link_to 'Edit', edit_person_path(@person) %> <span class="pipe">|</span>
+			<%= link_to 'Destroy', @person, :confirm => 'Are you sure?', :method => :delete %>
+		</p>
+	<% end %>
+<% end %>

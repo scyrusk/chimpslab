@@ -1,0 +1,38 @@
+<%= render_page("home-index") %>
+
+<% unless @posts.empty? %>
+	<h2>News</h2>
+
+	<% @posts.each do |post| %>
+		<%= render :partial => "posts/listing", :locals => { :post => post }%>
+	<% end %>
+	
+	<% if @posts_count > @posts_limit %>
+		<p>
+			<%= link_to "See more posts &raquo;", posts_path %>
+		</p>
+	<% end %>
+<% end %>
+
+<% unless @publications.empty? %>
+	<h2>Recent Publications</h2>
+	
+	<% @publications.each do |pub| %>
+		<%= render :partial => "publications/listing", 
+			:locals => { :publication => pub, :people => @people } %>
+	<% end %>
+	
+	<% if @publications_count > @publications_limit %>
+		<p>
+			<%= link_to "See more publications &raquo;", publications_path %>
+		</p>
+	<% end %>
+<% end %>
+
+<% if @publications.empty? && @posts.empty? %>
+	<em>Stay tuned for updates!</em>
+<% end %>
+
+<% content_for :sb do %>
+	<%= render_page("home-index-sb", :show_title => false) %>
+<% end %>

@@ -1,0 +1,7 @@
+--- 
+log_file: log/mongrel.log
+port: "41177"
+environment: production
+docroot: public
+address: 0.0.0.0
+pid_file: tmp/pids/mongrel.pid

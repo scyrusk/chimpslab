@@ -1,0 +1,16 @@
+<h4><%= link_to post.title, post %></h4>
+<p class="small">
+	By <%= link_to post.author.name, post.author %>
+	<% if post.published? %>
+		on <%= post.published_on.strftime("%B %d, %Y") %>
+	<% elsif post.published_on %>
+		(will be published on <%= post.published_on.strftime("%B %d, %Y") %>)
+	<% else %>
+		(Draft)
+	<% end %>
+</p>
+<%= truncate(strip_tags(post.body), :length => 255) %>
+<hr class="halfspace" />
+<p class="small">
+	<%= link_to "More &raquo;", post %>
+</p>
