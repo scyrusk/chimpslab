@@ -1,41 +1,39 @@
 <% content_for :title do %><%= @person.name %><% end %>
+<div class="row">
+  <div class="span2">
+    <%= image_tag @person.avatar.url(:small), :width => "140px" %>
+  </div>
+  <div class="span5">
+    <h1><%= @person.name %></h1>
 
-<div class="span-4">
-	<%= image_tag @person.avatar.url(:small), :width => "140" %>
+    <p>
+      <%= @person.position %><br/>
+      <%= mail_to @person.email, @person.emaildisplay, :encode => "javascript" %><br/>
+      <%= link_to @person.url, @person.url %>
+    </p>
+  </div>
 </div>
-<div class="span-14 last">
-	<h1><%= @person.name %></h1>
-	
-	<p>
-		<%= @person.position %><br/>
-		<%= mail_to @person.email, @person.emaildisplay, :encode => "javascript" %><br/>
-		<%= link_to @person.url, @person.url %>
-	</p>
-</div>
-<hr class="space" />
 
-<%= textilize @person.description %>
+<p><em><%= textilize(@person.description).html_safe %></em></p>
 
 <% unless @publications.empty? %>
-	<hr class="space" />
 	<h2>Publications</h2>
-	
-	<ul>
-		<% @publications.each do |pub| %>
-			<li><%= link_to pub.title, pub %> (<%= pub.year %>)</li>
-		<% end %>
-	</ul>
+  <table class="table table-striped">
+    <% @publications.each do |publication| %>
+      <%= render :partial => "publications/listing", 
+          :locals => {
+            :publication => publication,
+            :people => Person.all
+          } %>
+    <% end %>
+  </table>
 <% end %>
 
 <% unless @posts.empty? %>
-	<hr class="space" />
 	<h2>Posts</h2>
-	
-	<ul>
-		<% @posts.each do |post| %>
-			<li><%= link_to post.title, post %></li>
-		<% end %>
-	</ul>
+  <% @posts.each do |post| %>
+    <%= render :partial => "posts/listing", :locals => { :post => post } %>
+  <% end %>
 <% end %>
 
 <% content_for :sb do %>

@@ -1,22 +1,27 @@
-<h1>Listing venues</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Publications count</th>
-  </tr>
-
-<% @venues.each do |venue| %>
-  <tr>
-    <td><%=h venue.name %></td>
-    <td><%=h venue.publications_count %></td>
-    <td><%= link_to 'Show', venue %></td>
-    <td><%= link_to 'Edit', edit_venue_path(venue) %></td>
-    <td><%= link_to 'Destroy', venue, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+<h1>Venues</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Publication Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @venues.each do |venue| %>
+      <tr>
+        <td><%= link_to venue.name, venue_path(venue) %></td>
+        <td><%= venue.publications.length %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
 
-<%= link_to 'New venue', new_venue_path %>
+<% content_for :sb do %>
+	<% if authorized? %>
+		<h2>Actions</h2>
+		<p>
+			<%= link_to 'New Venue', new_venue_path %>
+		</p>
+	<% end %>
+<% end %>

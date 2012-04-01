@@ -1,97 +1,80 @@
-<% form_for(@publication, :html => { :multipart => true }) do |f| %>
-	<%= f.error_messages %>
+<%= form_for @publication, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend>Create New Publication</legend>
 
-	<div class="span-4">
-		<%= f.label :kind %>
-	</div>
-	<div class="span-4">
-		<%= select_tag :kind, options_for_select(Publication::KINDS << "Other:", @publication.kind) %>
-	</div>
-	<div class="span-10 last">
-		<%= f.text_field :kind, :class => "text", :style => "display:none;"  %>
-	</div>
-	<hr class="space" />
-	
-	<div class="span-4">
-		<%= f.label :authors %>
-		<p class="small">
-			Each author on a separate line.
-			For consistency, format should be
-			<code>first last</code>, <i>e.g.</i>:
-			<i>Anind K. Dey</i>
-		</p>
-	</div>
-	<div class="span-6">
-		<%= f.text_area :authors, :style => "height:100px;" %>
-	</div>
-	<div class="span-4">
-		<p class="small">
-			Use the canonical names of members so that their names are automatically linked to their profiles.
-		</p>
-	</div>
-	<div class="span-4 last">
-		<ul class="bulletless small" style="padding:5px;height:100px;overflow-y:auto;color:#666;background-color:#eee;">
-			<% Person.find(:all).each do |p| %>
-				<li><%= p.name %></li>
-			<% end %>
-		</ul>
-	</div>
-	<hr class="space" />
-	
-	<div class="span-4">
-		<%= f.label :title %>
-	</div>
-	<div class="span-14 last">
-		<%= f.text_field :title, :class => "text" %>
-	</div>
-	<hr class="space" />
-	
-	<div class="span-4">
-		<%= f.label :venue_name %>
-	</div>
-	<div class="span-14 last">
-		<% venue_names = Venue.find(:all, :conditions => "publications_count > 0").map { |v| v.name } %>
-		<%= select_tag :venue_name, options_for_select(venue_names << "Other:", @publication.venue_name) %><br/>
-		<%= f.text_field :venue_name, :class => "text", :style => "display:none;" %>
-		<p class="small" style="margin-bottom:0">
-			Use the name of the conference instead of the name of the proceedings,
-			<i>e.g., CHI vs. Proceedings of The ACM Conference on Human Factors in Computing Systems.</i>
-		</p>
-	</div>
-	<hr class="space" />
-	
-	<div class="span-4">
-		<%= f.label :year %>
-	</div>
-	<div class="span-4 append-10 last">
-		<%= f.text_field :year, :class => "text" %>
-	</div>
-	<hr class="space" />
-	
-	<div class="span-4">
-		<%= f.label :abstract %>
-		<p class="small">
-			You can format the abstract using
-			<%= link_to "Textile", "http://blog.thought-mesh.net/static/docs/mtmanual_textile2.html", :target => "_new" %>.	
-		</p>
-	</div>
-	<div class="span-14 last">
-		<%= f.text_area :abstract, :style => "height:200px;" %>
-	</div>
-	<hr class="space" />
-	
-	<div class="span-4">
-		<%= f.label :pdf %>
-	</div>
-	<div class="span-14 last">
-		<%= f.file_field :pdf %>
-	</div>
-	<hr class="space" />
-	
-	<div class="prepend-4 span-14 last">
-		<%= f.submit(@publication.new_record? ? 'Create' : 'Update', :class => "submit") %>
-	</div>
+    <div class="control-group">
+      <%= f.label :title, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :title, :class => 'text_field span5' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :kind, "Type:", :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :kind, options_for_select(Publication::KINDS << "Other:", @publication.kind), :class => 'text_field span5' %>
+        <%= f.text_field :kind, :class => "text_field span5", :style => "display:none;", :id => 'kind'  %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :authors, :class => 'control-label' %>
+      <div class="controls">
+        <p class="small">
+          Each author on a separate line.
+          For consistency, format should be
+          firstname middle-initial. lastname, <i>e.g.</i>:
+          <i>Jason I. Hong</i>
+        </p>
+        <%= f.text_area :authors, :class => 'text_area span5', :style => "height:100px;" %>
+        <p class="small">
+          Use the canonical names of members so that their names are automatically linked to their profiles.
+        </p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :venue_name, :class => 'control-label' %>
+      <div class="controls">
+        <% venue_names = Venue.where("publications_count > 0").map { |v| v.name } %>
+        <%= f.select :venue_name, options_for_select(venue_names << "Other:", @publication.venue_name), :class => 'text_field span5' %>
+        <%= f.text_field :venue_name, :class => "text_field span5", :style => "display:none;", :id => 'venue_name' %>
+        <p class="small" style="margin-bottom:0">
+          Use the name of the conference instead of the name of the proceedings,
+          <i>e.g., CHI vs. Proceedings of The ACM Conference on Human Factors in Computing Systems.</i>
+        </p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :year, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.number_field :year, :class => 'number_field span5' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :abstract, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :abstract, :class => 'text_area span5' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :pdf, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.file_field :pdf, :class => 'file_field span5' %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', publications_path, :class => 'btn' %>
+    </div>
+  </fieldset>
 <% end %>
+
+
 
 <% content_for :js do %>
 	<script type="text/javascript">
@@ -127,11 +110,8 @@
 		}
 		
 		$(document).ready(function() {
-			select_other("#kind", "#publication_kind");
-      select_other("#venue_name", "#publication_venue_name");
-      $("#content_background").height($("#content").height());
-      $("#content").offset({top: $("#content_background").offset().top});
-      $("#ft").offset({top: $("#content_background").offset().top+$("#content_background").height()+35});
+			select_other("#publication_kind", "#kind");
+      select_other("#publication_venue_name", "#venue_name");
 		});
 	</script>
 <% end %>

@@ -2,48 +2,51 @@
 
 <h1><%= @publication.title %></h1>
 
-<div class="span-3">
-	<b>Authors</b>
+<div class="row">
+  <div class="span1">
+    <b>Authors</b>
+  </div>
+  <div class="span5">
+    <%= link_to_authors @publication.authors_list, @people %>
+  </div>
 </div>
-<div class="span-15 last">
-	<%= link_to_authors @publication.authors_list, @people %>
-</div>
-<hr class="space" />
 
-<div class="span-3">
-	<b>Venue</b>
+<div class="row">
+  <div class="span1">
+    <b>Venue</b>
+  </div>
+  <div class="span5">
+    <%= @publication.venue_name %>
+  </div>
 </div>
-<div class="span-15 last">
-	<%= @publication.venue_name %>
-</div>
-<hr class="space" />
 
-<div class="span-3">
-	<b>Year</b>
-</div>
-<div class="span-15 last">
-	<%= @publication.year %>
+<div class="row">
+  <div class="span1">
+    <b>Year</b>
+  </div>
+  <div class="span5">
+    <%= @publication.year %>
+  </div>
 </div>
 
 
 <% unless @publication.abstract.blank? %>
-	<hr class="space" />
-	<div class="span-3">
-		<b>Abstract</b>
-	</div>
-	<div class="span-15 last">
-		<%= @publication.abstract %>
-	</div>
+  <div class="row">
+    <div class="span1">
+      <b>Abstract</b>
+    </div>
+    <div class="span5">
+      <%= @publication.abstract %>
+    </div>
+  </div>
 <% end %>
 
-<hr class="doublespace" />
 
 <h2>Comments</h2>
-
 <!-- Facebook Comments -->
 <div id="fb-root"></div>
 <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-<fb:comments href="<%= request.url %>" numposts="10" width="700"></fb:comments>
+<fb:comments href="<%= request.url %>" numposts="10" width="620"></fb:comments>
 
 <% content_for :sb do %>
 	<% if authorized? %>

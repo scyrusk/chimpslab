@@ -7,23 +7,14 @@
 
 <% else %>
 
-	<h1>Sign In</h1>
-
-	<% form_tag(:controller => "home", :action => "authenticate") do %>
-		<div class="span-4">
-			<%= label_tag :password, "Admin Password" %>
-		</div>
-		<div class="span-12 last">
-			<%= password_field_tag :password, nil, :class => "text" %>
-		</div>
-		<hr class="space" />
-		<div class="prepend-4 span-12 last">
-			<%= submit_tag "Sign In" %>
-		</div>
+  <h2>Sign In</h2>
+	<%= form_tag(:controller => "home", :action => "authenticate") do %>
+    <%= password_field_tag :password, nil, :class => "pull-left password_field", :placeholder => 'Enter Admin Password...' %>
+    <%= submit_tag "Go &raquo;".html_safe, :class => "btn btn-warning" %>
 	<% end %>
 	
 <% end %>
 
 <% content_for :sb do %>
-	<%= render_page("login-sb") %>
+	<%= render_page("login-sb").html_safe %>
 <% end %>

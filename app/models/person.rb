@@ -42,8 +42,8 @@ class Person < ActiveRecord::Base
   has_attached_file :avatar,
     :styles => {
       :thumb  => "100x100#",
-      :small  => "200x200>",
-      :medium => "400x400>"
+      :small  => "200x200#",
+      :medium => "400x400#"
     },
     :default_url => "/images/v1/no_avatar_92x92.png"
   

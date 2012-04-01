@@ -1,30 +1,27 @@
 <% content_for :title do %>People<% end %>
 
-<h1>People</h1>
-
 <% Person::POSITIONS.each do |position| %>
 	<% next unless @people_by_position.has_key?(position) %>
 	
-	<h2 id="<%= position.parameterize %>"><%= position %></h2>
-	
-	<% @people_by_position[position].each do |person| %>
-		<% column = cycle("", "", "last", :name => "columns") %>
-		<div class="span-6 <%= column %>">
-			<div class="span-2">
-				<%= image_tag person.avatar.url(:thumb), :size => "60x60", :style => "float:left;margin-right:10px;border:3px solid #fff;outline:1px solid #ccc;" %>
-			</div>
-			<div class="span-4 last">
-				<%= link_to person.name, person %>
-			</div>
-		</div>
-		
-		<% unless column.blank? %>
-			<hr class="space" />
-		<% end %>
-	<% end %>
-	
-	<hr class="space" />
-	
+  <div class="row">
+    <h2 id="<%= position.parameterize %>"><%= position %></h2>
+  </div>
+    
+    <% @people_by_position[position].each_slice(4) do |three| %>
+      <div class="row">
+        <% three.each do |person| %>
+          <div class="span2">
+            <div class="person_image">
+              <%= link_to (image_tag person.avatar.url(:thumb)), person %>
+            </div>
+            <div class="person_link">
+              <%= link_to person.name, person %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
 	<% reset_cycle("columns") %>
 <% end %>
 

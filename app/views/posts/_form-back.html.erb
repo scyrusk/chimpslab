@@ -1,0 +1,53 @@
+<%= form_for(@post) do |f| %>
+
+	<div class="span-4">
+		<%= f.label :title %>
+	</div>
+	<div class="span-14 last">
+		<%= f.text_field :title, :class => "text" %>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+		<%= f.label :body %>
+		<p class="small">
+			Use
+			<%= link_to "Textile", "http://blog.thought-mesh.net/static/docs/mtmanual_textile2.html", :target => "_new" %>
+			for formatting.
+		</p>
+	</div>
+	<div class="span-14 last">
+		<%= f.text_area :body, :style => "height:400px;" %>
+	</div>
+	<hr class="space" />
+	
+	<% @people = Person.find :all %>
+	<div class="span-4">
+		<%= f.label :author_id, "Author" %>
+	</div>
+	<div class="span-6 append-8 last">
+		<%= f.select :author_id, @people.map { |p| [p.name, p.id] } %>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+		<%= f.label :chronic_published_on, "Published on" %>
+	</div>
+	<div class="span-6 append-8 last">
+		<%= f.text_field :chronic_published_on, :class => "text" %>
+		<p class="small">
+			Leave blank to keep this post as a draft.
+		</p>
+	</div>
+	<hr class="space" />
+
+	<div class="prepend-4 span-14 last">
+	    <%= f.submit(@post.new_record? ? 'Create' : 'Update', :class => "submit") %>
+	</div>
+<% end %>
+
+<% content_for :sb do %>
+	<h2>Formatting your post</h2>
+	
+	<%= render :partial => "layouts/textile_examples" %>
+<% end %>

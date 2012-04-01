@@ -1,15 +1,8 @@
 # Be sure to restart your server when you modify this file.
 
-# Your secret key for verifying cookie session data integrity.
-# If you change this key, all old sessions will become invalid!
-# Make sure the secret is at least 30 characters and all random, 
-# no regular words or you'll be exposed to dictionary attacks.
-ActionController::Base.session = {
-  :key         => '_ubicomplab_session',
-  :secret      => 'd79dd6db19ec740ec5aa5ad457ab25efac999010d8ee8da1e46a7694c8563a15a0c90c2cbba172df38433ff328203717804c3ff50f90d4f3878b7e587043e1f7'
-}
+Chimpslab::Application.config.session_store :cookie_store, :key => '_chimpslab_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rake db:sessions:create")
-# ActionController::Base.session_store = :active_record_store
+# Chimpslab::Application.config.session_store :active_record_store

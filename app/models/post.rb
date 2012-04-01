@@ -23,14 +23,14 @@
 class Post < ActiveRecord::Base
   belongs_to :author, :class_name => "Person", :foreign_key => "author_id"
   
-  named_scope :published, lambda {
+  scope :published, lambda {
     {
       :conditions => ["published_on IS NOT NULL AND DATE(published_on) <= ?", Date.today],
       :order => "published_on DESC"
     }
   }
   
-  named_scope :unpublished, lambda {
+  scope :unpublished, lambda {
     {
       :conditions => ["published_on IS NULL OR DATE(published_on) > ?", Date.today],
       :order => "published_on DESC"

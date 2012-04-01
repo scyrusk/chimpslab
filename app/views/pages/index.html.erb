@@ -1,28 +1,33 @@
-<% content_for :title do %>Pages<% end %>
-
 <h1>Pages</h1>
-
-<% @pages.each do |page| %>
-	<div class="span-9 <%= cycle("", "last") %>">
-		<b><%= link_to page.permalink, page_path(page) %></b>
-		<p>
-			<%= truncate(page.body, :length => 256) %>
-		</p>
-		<p class="small">
-			<% if page.sidebar %>
-				Sidebar: <%= link_to page.sidebar.permalink, page_path(page.sidebar) %><br/>
-			<% end %>
-			Page Title: <b><%=h page.title %></b><br/>
-			Actions: 
-			<%= link_to 'Show', page %> <span class="pipe">|</span>
-		    <%= link_to 'Edit', edit_page_path(page) %> <span class="pipe">|</span>
-		    <%= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete %>
-		</p>
-	</div>
-<% end %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Created at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pages.each do |page| %>
+      <tr>
+        <td><%= page.id %></td>
+        <td><%= link_to page.title, page_path(page) %></td>
+        <td><%= page.created_at %></td>
+        <td>
+          <%= link_to 'Edit', edit_page_path(page), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', page_path(page), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <% content_for :sb do %>
-	<h2>Actions</h2>
-	
-	<%= link_to 'New page', new_page_path %>
+	<% if authorized? %>
+		<h2>Actions</h2>
+		<p>
+			<%= link_to 'New Page', new_page_path %>
+		</p>
+	<% end %>
 <% end %>

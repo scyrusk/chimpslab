@@ -1,4 +1,4 @@
-<%= render_page("home-index") %>
+<%= render_page("home-index").html_safe %>
 
 <% unless @posts.empty? %>
 	<h2>News</h2>
@@ -16,11 +16,12 @@
 
 <% unless @publications.empty? %>
 	<h2>Recent Publications</h2>
-	
-	<% @publications.each do |pub| %>
-		<%= render :partial => "publications/listing", 
-			:locals => { :publication => pub, :people => @people } %>
-	<% end %>
+  <table class="table table-striped">	
+    <% @publications.each do |pub| %>
+      <%= render :partial => "publications/listing", 
+        :locals => { :publication => pub, :people => @people } %>
+    <% end %>
+  </table>
 	
 	<% if @publications_count > @publications_limit %>
 		<p>
@@ -34,5 +35,5 @@
 <% end %>
 
 <% content_for :sb do %>
-	<%= render_page("home-index-sb", :show_title => false) %>
+	<%= render_page("home-index-sb", :show_title => false).html_safe %>
 <% end %>

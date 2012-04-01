@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta property="fb:app_id" content="224017034329277" />
+  <title>Chimpslab</title>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tag %>
+	<%= stylesheet_link_tag 'chimpslab/test' %>
+
+<%= yield :head %>
+
+</head>
+<body>
+
+  <div id="all" class="all">
+    <div id="leftNav" class="leftNav">
+      <div class="chimptopleft" id="chimplogo">
+        <a id="chimpslogo" class="logo" href="/" title="CHIMPS Lab">
+            <h1>CHIMPS Lab</h1>
+            <img src="/assets/vchimps/chimps-logo.png"/>
+            <img src="/assets/vchimps/chimps-logo_on.png" class="_on"/>
+          </a>
+        </div>
+
+        <div class="divider" id="leftNavDivider">
+          <center><img border="0" src="/assets/vchimps/divider.gif" width="220"/></center>
+        </div>
+
+        
+        <div id="mainnav">
+          <ul>
+            <li><%= link_to 'Home', root_path, :class => ((controller_name == "home" or controller_name == "pages") ? "selected" : nil) %></li>
+            <li><%= link_to "Blog", posts_path, :class => (controller_name == "posts" ? "selected" : nil)  %></li>
+            <li><%= link_to "People", people_path, :class => (controller_name == "people" ? "selected" : nil)  %></li>
+            <li><%= link_to "Publications", publications_path, :class => (controller_name == "publications" ? "selected" : nil)  %></li>
+            <% if authorized? %>
+              <li class="admin">
+                <%= link_to "Admin", admin_path, :class => "selected" %>
+                <ul>
+                  <li><%= link_to "Pages", pages_path %></li>
+                  <li><%= link_to "Venues", venues_path %></li>
+                  <li><%= link_to "Logout", logout_path %></li>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </td>
+    </div>
+   
+    <!-- Content -->
+    <div id="maincont" class="maincont">
+      <div id="content_background" class="container container_wrap container_with_sb_bg"></div>
+      <div id="content" class="container container_wrap container_with_sb">
+        <div id="bd" class="span-18">
+          <%= yield %>
+        </div>
+        <div class="sb span-6 last">
+          <div style="padding-left:20px;">
+            <%= yield :sb %>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Flash Notice -->
+      <% if flash[:notice] %>
+        <div id="flash" class="container container_wrap">
+          <div class="span-18">
+            <%= flash[:notice] %>
+          </div>
+          <div class="span-6 last">
+            <a href="#" id="close_flash">&times;</a>
+          </div>
+        </div>
+        <script type="text/javascript">
+          $("#close_flash").click(function(e) {
+            e.preventDefault();
+            $('#flash').slideUp("normal");
+          });
+          
+          $(document).ready(function() {
+            setTimeout(function() {
+              $('#flash').slideUp("normal");
+            }, 5000);
+          });
+        </script>
+      <% end %>
+    </div>
+    <!-- Footer -->
+    <div id="ftcontainer" class="ftcontainer">
+      <div id="ft" class="container container_wrap">
+        <div class="span-12">
+          <%= link_to "Home", root_url %> <span class="pipe">|</span>
+          <%= link_to "Blog", posts_url %> <span class="pipe">|</span>
+          <%= link_to "People", people_url %> <span class="pipe">|</span>
+          <%= link_to "Publications", publications_url %>
+        </div>
+        <div class="span-12 last" style="text-align:right">
+          &copy; <%= Date.today.strftime("%Y") %> 
+          <%= link_to "CHIMPS Lab @ HCII, CMU", root_url %>.
+          All rights reserved.
+          <span class="pipe">|</span>
+          
+          <% if authorized? %>
+            <%= link_to 'Logout', logout_path %>
+          <% else %>
+            <%= link_to 'Login', login_path %>
+          <% end %>
+        </div>
+      </div>
+  </div>
+
+      <script type="text/javascript">
+        $(document).ready(function() {
+          var cont = $("#content");
+          var cont_bg = $("#content_background");
+          $(cont_bg).height(cont.height());
+          $(cont_bg).width(cont.width());
+          $(cont).offset($(cont_bg).offset());
+          $(cont_bg).css("z-index",0);
+          //fix maincont
+          //var maincnt = $("#maincont");
+          //maincnt.height(cont.height());
+          //fix footer
+          var ft = $("#ft");
+          ft.offset({ top: (cont.offset().top+cont.height()), left: cont.offset().left});
+          //ft.offset({ top: (ft.offset().top+40) });
+        });
+
+        $(window).resize(function() {
+          $("#ft").offset({ left: $("#content").offset().left });
+        });
+        
+
+        $(window).load(function() {
+          $("#ft").offset({top: $("#ft").offset().top + 40});
+        });
+        
+        var set = false;
+        $(window).mousemove(function(event) {
+          $("#content").resize();
+          
+          if (!set && $("#fb_widget").children().children().size() > 0) {
+            $("#fb_widget").children().children().click(function() {
+              $("#content").resize();
+            });
+
+
+            $("#fb_widget").children().children().mouseenter(function() {
+              $("#content").resize();
+            });
+
+            $("#fb_widget").children().children().mouseleave(function() {
+              $("#content").resize();
+            });
+
+            $("#fb_widget").children().children().mousehover(function() {
+              $("#content").resize();
+            });
+            set=true;
+          }
+        });
+        
+
+        $("#content").resize(function() {
+            $("#content_background").height($("#content").height());
+            $("#content").offset({top: $("#content_background").offset().top});
+            $("#ft").offset({top: $("#content_background").offset().top + $("#content_background").height()+40});
+        });
+
+
+      </script>
+  </div> <!-- End Container -->
+
+<!-- Javascripts -->
+<%= yield :js %>
+
+<!-- Analytics -->
+<%= render :partial => "layouts/analytics" %>
+
+</body>
+</html>

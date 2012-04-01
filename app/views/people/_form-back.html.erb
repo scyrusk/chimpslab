@@ -1,0 +1,114 @@
+<%= form_for(@person, :html => { :multipart => true }) do |f| %>
+  <% if @person.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+      <% @person.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="span-4">
+    	<%= f.label :name %>
+	</div>
+	<div class="span-14 last">
+	    <%= f.text_field :name, :class => "text" %>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+    	<%= f.label :alias %>
+	</div>
+	<div class="span-14 last">
+	    <%= f.text_field :alias, :class => "text" %><br/>
+		This person's profile page: http://cmuchimps.org/<b id="alias">ALIAS</b>
+	</div>
+	<hr class="space" />
+  
+  <div class="span-4">
+    <label for="emaildisplay">Email Display</label>
+	</div>
+	<div class="span-14 last">
+    <%= f.text_field :emaildisplay, :class => "text" %><br/>
+    This is how your e-mail will render in your profile: <b id="emailal">email alias</b>
+  </div>
+	<hr class="space" />
+
+	<div class="span-4">
+    	<%= f.label :email %>
+	</div>
+	<div class="span-14 last">
+	    <%= f.text_field :email, :class => "text" %>
+	</div>
+	<hr class="space" />
+
+	<div class="span-4">
+    	<%= f.label :url %>
+	</div>
+	<div class="span-14 last">
+	    <%= f.text_field :url, :class => "text" %>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+    	<%= f.label :position %>
+	</div>
+	<div class="span-4 append-10 last">
+		<%= f.select :position, Person::POSITIONS %>
+	</div>
+	<hr class="space" />
+
+	<div class="span-4">
+    	<%= f.label :description %>
+	</div>
+	<div class="span-14 last">
+	    <%= f.text_area :description %>
+	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+    	<%= f.label :avatar %>
+	</div>
+	<div class="span-14 last">
+	    <%= f.file_field :avatar %>
+	</div>
+	<hr class="space" />
+	
+	<div class="prepend-4 span-14 last">
+	    <%= f.submit(@person.new_record? ? 'Create' : 'Update', :class => "submit") %>
+	</div>
+<% end %>
+
+<% content_for :sb do %>
+	<h2>Formatting your description</h2>
+	
+	<%= render :partial => "layouts/textile_examples" %>
+<% end %>
+
+<% content_for :js do %>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var value = $("#person_alias").val();
+    var emval = $("#person_emaildisplay").val();
+
+    if (value.length > 0) {
+			$("#alias").html(value);
+    }
+    if (emval.length > 0) {
+      $("#emailal").html(emval);
+    }
+	});
+	
+	$("#person_alias").keyup(function() {
+		var value = $(this).val();
+		$("#alias").html(value);
+  });
+
+  $("#person_emaildisplay").keyup(function() {
+    var value = $(this).val();
+    $("#emailal").text(""+value);
+  });
+</script>
+<% end %>

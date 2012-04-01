@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-config_file = "#{RAILS_ROOT}/config/simple_auth.yml"
+config_file = "#{Rails.root}/config/simple_auth.yml"
 yaml_hash = YAML.load(File.read(config_file))
-simple_auth_hash = yaml_hash[RAILS_ENV]
+simple_auth_hash = yaml_hash[Rails.env]
 ENV["SIMPLE_AUTH_PASSWORD"] = simple_auth_hash["password"].strip

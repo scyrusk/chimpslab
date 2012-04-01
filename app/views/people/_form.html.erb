@@ -1,76 +1,72 @@
-<% form_for(@person, :html => { :multipart => true }) do |f| %>
-	<%= f.error_messages %>
+<%= form_for @person, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend>Create New Person</legend>
 
-	<div class="span-4">
-    	<%= f.label :name %>
-	</div>
-	<div class="span-14 last">
-	    <%= f.text_field :name, :class => "text" %>
-	</div>
-	<hr class="space" />
-	
-	<div class="span-4">
-    	<%= f.label :alias %>
-	</div>
-	<div class="span-14 last">
-	    <%= f.text_field :alias, :class => "text" %><br/>
-		This person's profile page: http://cmuchimps.org/<b id="alias">ALIAS</b>
-	</div>
-	<hr class="space" />
-  
-  <div class="span-4">
-    <label for="emaildisplay">Email Display</label>
-	</div>
-	<div class="span-14 last">
-    <%= f.text_field :emaildisplay, :class => "text" %><br/>
-    This is how your e-mail will render in your profile: <b id="emailal">email alias</b>
-  </div>
-	<hr class="space" />
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'text_field span5' %>
+      </div>
+    </div>
 
-	<div class="span-4">
-    	<%= f.label :email %>
-	</div>
-	<div class="span-14 last">
-	    <%= f.text_field :email, :class => "text" %>
-	</div>
-	<hr class="space" />
+    <div class="control-group">
+      <%= f.label :alias, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :alias, :class => 'text_field span5' %><br/>
+      This person's profile page: http://cmuchimps.org/<b id="alias">ALIAS</b>
+      </div>
+    </div>
 
-	<div class="span-4">
-    	<%= f.label :url %>
-	</div>
-	<div class="span-14 last">
-	    <%= f.text_field :url, :class => "text" %>
-	</div>
-	<hr class="space" />
-	
-	<div class="span-4">
-    	<%= f.label :position %>
-	</div>
-	<div class="span-4 append-10 last">
-		<%= f.select :position, Person::POSITIONS %>
-	</div>
-	<hr class="space" />
+    <div class="control-group">
+      <%= f.label :email, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :email, :class => 'text_field span5' %>
+      </div>
+    </div>
 
-	<div class="span-4">
-    	<%= f.label :description %>
-	</div>
-	<div class="span-14 last">
-	    <%= f.text_area :description %>
-	</div>
-	<hr class="space" />
-	
-	<div class="span-4">
-    	<%= f.label :avatar %>
-	</div>
-	<div class="span-14 last">
-	    <%= f.file_field :avatar %>
-	</div>
-	<hr class="space" />
-	
-	<div class="prepend-4 span-14 last">
-	    <%= f.submit(@person.new_record? ? 'Create' : 'Update', :class => "submit") %>
-	</div>
+    <div class="control-group">
+      <%= f.label :emaildisplay, 'Email Display', :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :emaildisplay, :class => 'text_field span5' %><br/>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :url, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :url, :class => 'text_field span5' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :position, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :position, Person::POSITIONS, :class => 'text_field span5' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :description, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :description, :class => 'text_area span5' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :avatar, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.file_field :avatar, :class => 'text_field span5' %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', people_path, :class => 'btn' %>
+    </div>
+  </fieldset>
 <% end %>
+
+
 
 <% content_for :sb do %>
 	<h2>Formatting your description</h2>
@@ -82,24 +78,15 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var value = $("#person_alias").val();
-    var emval = $("#person_emaildisplay").val();
 
     if (value.length > 0) {
 			$("#alias").html(value);
-    }
-    if (emval.length > 0) {
-      $("#emailal").html(emval);
     }
 	});
 	
 	$("#person_alias").keyup(function() {
 		var value = $(this).val();
 		$("#alias").html(value);
-  });
-
-  $("#person_emaildisplay").keyup(function() {
-    var value = $(this).val();
-    $("#emailal").text(""+value);
   });
 </script>
 <% end %>

@@ -1,0 +1,177 @@
+@import "twitter/bootstrap/bootstrap";
+
+.row {
+  margin-bottom:10px;
+}
+
+.well {
+  background-color:#FFEBC2;
+}
+
+
+.form-actions {
+  background-color:transparent;
+}
+
+.bordered {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.15);
+  padding:10px 10px;
+}
+
+body {
+	margin:0;
+  padding-top:60px;
+	font-family:"Lucida Sans",Arial,sans-serif;
+	font-size:12px;
+	background:#FFFFFF  url(/assets/vchimps/monkey-side.png) no-repeat top right fixed;
+}
+
+a { color:#997A12; }
+a:hover { color:#993300; }
+
+h1, h2, h3, h4, h5, h6 { font-weight:bold;letter-spacing:-0.05em; }
+h1 { margin-bottom:0.75em;font-size:32px;line-height:1em; }
+h2 { margin-bottom:0.5em;font-size:20px; }
+h3 { margin-bottom:0.5em;font-size:16px; }
+h4 { margin-bottom:0.5em;font-size:14px; }
+
+/* === Special === */
+span.pipe {
+	padding:0px 5px;
+	color:#666;
+}
+.small {
+	/* Makes anything small; inherited from Blueprint CSS#screen.css */
+	line-height:1.5em;
+}
+.gravatar {
+	/* Create a faux frame around the gravatar icon */
+	outline:1px solid #ccc;
+	border:5px solid #fff;
+}
+	a:hover>.gravatar {
+		outline:1px solid #F6FF00;
+	}
+#ft {
+	margin-bottom:0px !important;
+  padding-top:15px;;
+	padding-bottom:15px;
+	font-size:11px;
+	color:#999;
+	background-color:#7E5E4F;
+}
+	#ft span.pipe {
+		padding:0 2px;
+		color:#999;
+	}
+
+/* === FLASH MESSAGES === */
+#flash {
+	padding:10px 20px;
+	font-size:18px;
+	font-weight:bold;
+	color:#fff;
+	background-color:#7E5E4F;
+}
+	#close_flash {
+		float:right;
+		display:block;
+		padding:3px 6px 5px;
+		line-height:1em;
+		background-color:#fff;
+		color:#7E5E4F;
+		text-decoration:none;
+	}
+
+div#flash-notice {
+	
+}
+
+div#flash-warning {
+	
+}
+
+div#flash-error {
+	
+}
+
+/* === ERROR MESSAGES === */
+div#errorExplanation {
+	
+}
+
+div#errorExplanation h2 {
+	
+}
+
+div#errorExplanation p {
+	
+}
+
+div#errorExplanation ul {
+	
+}
+
+div#errorExplanation ul li {
+	
+}
+
+/* === FORMS === */
+div.fieldWithErrors {
+	
+}
+
+div.fieldWithErrors label {
+	
+}
+
+div.fieldWithErrors input, div.fieldWithErrors select, 
+div.fieldWithErrors textarea
+{
+	
+}
+
+form {
+}
+form label,
+form input,
+form input.text,
+form input.checkbox,
+form input.submit,
+form select {
+	font-size:16px;
+}
+form input.text,
+form select,
+form textarea {
+	margin:0;
+	width:98%;
+}
+form select {
+	margin-bottom:10px;
+}
+	
+/* === Admin Actions === */
+.admin_actions {
+	margin-bottom:1em;
+	padding:5px 8px;
+	background-color:transparent; /* #c2daf5; */
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+// Set the correct sprite paths
+@iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
+@iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
+
+// Your custom LESS stylesheets goes here
+//
+// Since bootstrap was imported above you have access to its mixins which
+// you may use and inherit here
+//
+// If you'd like to override bootstrap's own variables, you can do so here as well
+// See http://twitter.github.com/bootstrap/less.html for their names and documentation
+//
+// Example:
+// @linkColor: #ff0000;

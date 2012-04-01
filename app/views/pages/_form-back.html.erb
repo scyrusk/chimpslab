@@ -1,0 +1,86 @@
+<%= form_for(@page) do |f| %>
+
+	<div class="span-4">
+		<%= f.label :title %> (optional)
+	</div>
+	<div class="span-14 last">
+	    <%= f.text_field :title, :class => "text" %>
+		<p class="small" style="margin-bottom:0">
+			This is the title that appears at the top of the window.
+		</p>
+ 	</div>
+	<hr class="space" />
+	
+	<div class="span-4">
+    	<%= f.label :permalink %>
+	</div>
+	<div class="span-14 last">
+		<div class="span-11">
+    		<%= f.text_field :permalink, :class => "text" %><br/>
+		</div>
+		<div class="span-3 last">
+			<%= link_to_function "&laquo; Use Title", "permalink_title();", :class => "button" %>
+		</div>
+		<div class="span-14 last">
+			This page's URL is: http://ubicomplab.org/pages/<b id="permalink">PERMALINK</b>
+		</div>
+	</div>
+	
+	<hr class="space" />
+	
+	<div class="span-4">
+    	<%= f.label :body %>
+		<p class="small">
+			You can format the body using
+			<%= link_to "Textile", "http://blog.thought-mesh.net/static/docs/mtmanual_textile2.html", :target => "_new" %>.	
+		</p>
+	</div>
+	<div class="span-14 last">
+    	<%= f.text_area :body, :style => "height:400px;" %>
+	</div>
+	<hr class="space" />
+
+	<% @pages = Page.find :all %>
+	<% unless @pages.empty? %>
+		<div class="span-4">
+	    	<%= f.label :sidebar_id, "Sidebar" %>
+		</div>
+		<div class="span-14 last">
+	    	<%= f.select :sidebar_id, @pages.map { |p| [p.permalink, p.id] }, { :include_blank => true } %>
+		</div>
+		<hr class="space" />
+	<% end %>
+	
+	<div class="prepend-4 span-14 last">
+	    <%= f.submit(@page.new_record? ? 'Create' : 'Update', :class => "submit") %>
+	</div>
+<% end %>
+
+<% content_for :sb do %>
+	<h2>Formatting the body of the page</h2>
+	
+	<%= render :partial => "layouts/textile_examples" %>
+<% end %>
+
+<% content_for :js do %>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var value = $("#page_permalink").val();
+			if (value.length > 0) {
+				$("#permalink").html(value);
+			}
+		});
+		
+		function permalink_title() {
+			var value = $("#page_title").val();
+			var permalink = value.toLowerCase().replace(/[^a-z0-9]/ig, "-")
+			$("#page_permalink").val(permalink);
+			$("#permalink").html(permalink);
+		}
+	
+		$("#page_permalink").keyup(function() {
+			var permalink = $(this).val();
+			$("#permalink").html(permalink);
+		});
+	</script>	
+<% end %>
